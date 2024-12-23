@@ -54,7 +54,46 @@
     </div>
     <div class="content">
         <h2>Welcome to the Backend Panel</h2>
-        <p>This is the main content area where you can manage your Jobs.</p>
+        <p>This is the main content area where you can manage your Jobs.</p>              
+                <!-- Payment Area -->
+                <h2>Send Invoice</h2>
+                <form id="invoiceForm">
+                    <label for="email">Customer Email:</label>
+                    <input type="email" id="email" name="email" required><br><br>
+                    
+                    <label for="amount">Amount:</label>
+                    <input type="number" id="amount" name="amount" required><br><br>
+                    
+                    <label for="description">Description:</label>
+                    <textarea id="description" name="description" required></textarea><br><br>
+                    
+                    <button type="button" onclick="sendInvoice()">Send Invoice</button>
+                </form>
+                
+            </div>
+        </body>
+        <script>
+            async function sendInvoice() {
+                const email = document.getElementById('email').value;
+                const amount = document.getElementById('amount').value;
+                const description = document.getElementById('description').value;
+        
+                const response = await fetch('/send-invoice', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, amount, description })
+                });
+        
+                if (response.ok) {
+                    alert('Invoice sent successfully!');
+                } else {
+                    alert('Failed to send invoice.');
+                }
+            }
+        </script>
+        </html>
     </div>
 </body>
 </html>
